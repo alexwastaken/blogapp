@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  auth0UserId    String?        @unique
+  email          String?        @unique
+  nickname       String         @unique
+  favoriteGame   Game
+  skillLevel     SkillLevel
+  whoToPlayWith  WhoToPlayWith?
+}
+
+enum Game {
+  GAME_OPTION_1
+  GAME_OPTION_2
+  GAME_OPTION_3
+  GAME_OPTION_4
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+enum WhoToPlayWith {
+  PARTNER_OPTION_1
+  PARTNER_OPTION_2
+  PARTNER_OPTION_3
+  PARTNER_OPTION_4
+}
